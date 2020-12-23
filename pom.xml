@@ -6,7 +6,7 @@
 
     <groupId>com.mandarin</groupId>
     <artifactId>SatsumaBot</artifactId>
-    <version>1.0.0</version>
+    <version>PLACEHOLDER</version>
 
     <build>
         <plugins>
@@ -17,8 +17,6 @@
                 <extensions>true</extensions>
                 <configuration>
                     <strategy hint="git">
-                        <nonQualifierBranches>master</nonQualifierBranches>
-                        <snapshot>false</snapshot>
                     </strategy>
                 </configuration>
             </plugin>
