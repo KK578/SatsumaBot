@@ -1,4 +1,4 @@
-package com.mandarin.views;
+package uk.co.thelittlemandarin.views;
 
 import com.slack.api.model.ModelConfigurator;
 import com.slack.api.model.view.View;

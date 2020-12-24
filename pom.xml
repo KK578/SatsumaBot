@@ -2,11 +2,51 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mandarin</groupId>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>uk.co.thelittlemandarin</groupId>
     <artifactId>SatsumaBot</artifactId>
+    <packaging>pom</packaging>
     <version>PLACEHOLDER</version>
+
+    <properties>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+
+        <bolt.version>1.4.1</bolt.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
+        <javax.version>2.1.1</javax.version>
+        <jackson.version>2.11.2</jackson.version>
+        <jackson.databind.nullable.version>0.2.1</jackson.databind.nullable.version>
+        <jersey.version>2.32</jersey.version>
+        <logback.version>1.3.0-alpha5</logback.version>
+        <lombok.version>1.18.16</lombok.version>
+        <openapi.generator.version>4.3.1</openapi.generator.version>
+        <swagger.annotations.version>1.6.2</swagger.annotations.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.slack.api</groupId>
+            <artifactId>bolt-jetty</artifactId>
+            <version>${bolt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>mandarin-api</module>
+        <module>satsuma-bot</module>
+    </modules>
 
     <build>
         <plugins>
@@ -22,28 +62,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.slack.api</groupId>
-            <artifactId>bolt-jetty</artifactId>
-            <version>1.4.1</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.3.0-alpha5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
-        </dependency>
-    </dependencies>
-
-    <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-    </properties>
 
 </project>

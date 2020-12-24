@@ -1,6 +1,6 @@
-package com.mandarin.actions;
+package uk.co.thelittlemandarin.actions;
 
-import com.mandarin.views.HomeViewConfigurer;
+import uk.co.thelittlemandarin.views.HomeViewConfigurer;
 import com.slack.api.bolt.context.builtin.ActionContext;
 import com.slack.api.bolt.handler.builtin.BlockActionHandler;
 import com.slack.api.bolt.request.builtin.BlockActionRequest;
