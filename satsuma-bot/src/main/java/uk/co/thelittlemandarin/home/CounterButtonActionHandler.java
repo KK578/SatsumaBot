@@ -1,15 +1,17 @@
-package uk.co.thelittlemandarin.actions;
+package uk.co.thelittlemandarin.home;
 
-import uk.co.thelittlemandarin.views.HomeViewConfigurer;
 import com.slack.api.bolt.context.builtin.ActionContext;
 import com.slack.api.bolt.handler.builtin.BlockActionHandler;
 import com.slack.api.bolt.request.builtin.BlockActionRequest;
 import com.slack.api.bolt.response.Response;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.view.Views;
+import lombok.AllArgsConstructor;
 
+import javax.inject.Inject;
 import java.io.IOException;
 
+@AllArgsConstructor(onConstructor = @__(@Inject))
 public class CounterButtonActionHandler implements BlockActionHandler {
 
     public static int count = 0;
