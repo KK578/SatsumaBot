@@ -3,23 +3,29 @@ package uk.co.thelittlemandarin;
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.jetty.SlackAppServer;
 import com.slack.api.model.event.AppHomeOpenedEvent;
+import io.grpc.ManagedChannelBuilder;
 import uk.co.thelittlemandarin.actions.CounterButtonActionHandler;
 import uk.co.thelittlemandarin.events.SatsumaHomeEventHandler;
-import uk.co.thelittlemandarin.mandarin.ApiClient;
-import uk.co.thelittlemandarin.mandarin.ApiException;
-import uk.co.thelittlemandarin.mandarin.api.StockistsApi;
-import uk.co.thelittlemandarin.mandarin.model.Stockist;
+import uk.co.thelittlemandarin.mandarin.StockistsGrpc;
+import uk.co.thelittlemandarin.mandarin.StockistsOuterClass;
+import uk.co.thelittlemandarin.mandarin.auth.JwtCallCredentials;
+
+import java.util.stream.Collectors;
+
+import static uk.co.thelittlemandarin.mandarin.StockistsOuterClass.GetStockistsRequest;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
         var app = new App();
 
-        var apiClient = new ApiClient();
-        var apiKey = System.getProperty("MANDARIN_API_KEY");
-        apiClient.setApiKeyPrefix("Bearer");
-        apiClient.setApiKey(apiKey);
-        var stockistsController = new StockistsApi(apiClient);
+        var channel = ManagedChannelBuilder
+            .forAddress("localhost", 5001)
+            .build();
+        var apiKey = System.getenv("MANDARIN_API_KEY");
+        var callCredentials = new JwtCallCredentials(apiKey);
+        var stockists = StockistsGrpc.newBlockingStub(channel)
+            .withCallCredentials(callCredentials);
 
         app.blockAction("buttonCounter", new CounterButtonActionHandler());
 
@@ -27,9 +33,14 @@ public class Main {
 
         app.command("/hello", (req, ctx) -> {
             try {
-                var stockist = stockistsController.stockistsGetStockistByCode("EK19");
-                return ctx.ack(apiClient.getJSON().getContext(Stockist.class).writeValueAsString(stockist));
-            } catch (ApiException e) {
+                var request = GetStockistsRequest.newBuilder().build();
+                var response = stockists.getStockists(request);
+                ctx.respond(response.getStockistsList()
+                    .stream()
+                    .map(StockistsOuterClass.Stockist::getStockistCode)
+                    .collect(Collectors.joining(", ")));
+                return ctx.ack("Hello");
+            } catch (Exception e) {
                 return ctx.ack(e.toString());
             }
         });
