@@ -1,4 +1,4 @@
-package uk.co.thelittlemandarin.mandarin.channel;
+package uk.co.thelittlemandarin.mandarin.auth;
 
 import io.grpc.CallCredentials;
 import io.grpc.Metadata;
@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 import static io.grpc.Metadata.ASCII_STRING_MARSHALLER;
 
 @AllArgsConstructor
-class JwtCallCredentials extends CallCredentials {
+public class JwtCallCredentials extends CallCredentials {
 
     private final String token;
 

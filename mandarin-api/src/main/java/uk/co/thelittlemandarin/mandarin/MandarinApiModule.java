@@ -1,13 +1,12 @@
-package uk.co.thelittlemandarin.mandarin.channel;
+package uk.co.thelittlemandarin.mandarin;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import uk.co.thelittlemandarin.mandarin.MandarinApi;
-import uk.co.thelittlemandarin.mandarin.StockistsGrpc;
+import uk.co.thelittlemandarin.mandarin.auth.JwtCallCredentials;
 
-public class MandarinGrpcChannelModule extends AbstractModule {
+public class MandarinApiModule extends AbstractModule {
 
     @Provides
     StockistsGrpc.StockistsBlockingStub blockingStockistsStub(@MandarinApi ManagedChannel channel, @MandarinApi JwtCallCredentials callCredentials) {
