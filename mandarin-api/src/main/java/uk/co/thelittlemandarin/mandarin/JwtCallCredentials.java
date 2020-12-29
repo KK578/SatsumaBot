@@ -1,4 +1,4 @@
-package uk.co.thelittlemandarin.mandarin.auth;
+package uk.co.thelittlemandarin.mandarin;
 
 import io.grpc.CallCredentials;
 import io.grpc.Metadata;
@@ -10,16 +10,16 @@ import java.util.concurrent.Executor;
 import static io.grpc.Metadata.ASCII_STRING_MARSHALLER;
 
 @AllArgsConstructor
-public class JwtCallCredentials extends CallCredentials {
+class JwtCallCredentials extends CallCredentials {
 
-    private final String token;
+    private final MandarinApiProperties properties;
 
     @Override
     public void applyRequestMetadata(RequestInfo requestInfo, Executor executor, MetadataApplier metadataApplier) {
         executor.execute(() -> {
             try {
                 Metadata headers = new Metadata();
-                headers.put(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER), String.format("Bearer %s", token));
+                headers.put(Metadata.Key.of("Authorization", ASCII_STRING_MARSHALLER), String.format("Bearer %s", properties.getJwtToken()));
                 metadataApplier.apply(headers);
             } catch (Throwable e) {
                 metadataApplier.fail(Status.UNAUTHENTICATED.withCause(e));

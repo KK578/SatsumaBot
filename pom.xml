@@ -15,7 +15,7 @@
 
         <bolt.version>1.4.1</bolt.version>
         <grpc.version>1.34.1</grpc.version>
-        <guice.version>4.2.1</guice.version>
+        <guice.version>5.0.0-BETA-1</guice.version>
         <javax.annotation.version>1.3.2</javax.annotation.version>
         <javax.version>2.1.1</javax.version>
         <jackson.version>2.11.2</jackson.version>
